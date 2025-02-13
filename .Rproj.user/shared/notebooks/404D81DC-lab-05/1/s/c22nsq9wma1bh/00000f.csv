@@ -1,0 +1,3 @@
+"0","#3 calculate the distances between all possible pairings of Denny’s and La Quinta in MN"
+"0","dn_lq_MN <- dn_lq_MN %>%"
+"0","  mutate (distance = haversine (longitude.x, latitude.x, longitude.y,  latitude.y, round =3))"

@@ -1,0 +1,5 @@
+"0","#4 find the minimum distance between each Denny’s and La Quinta location"
+"0","dn_lq_MN_mindist <- dn_lq_MN %>%"
+"0","  group_by(address.x) %>%"
+"0","  summarize(closest = min(distance))"
+"0","dn_lq_MN_mindist"

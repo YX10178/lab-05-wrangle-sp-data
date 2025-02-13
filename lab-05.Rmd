@@ -217,11 +217,60 @@ ggplot(dn_lq_tx_mindist, aes(x = reorder(address.x, closest), y = closest)) +
 ```
 
 
-### Exercise 11
-```{r }
+### Exercise 11 (1)
+```{r Repeat the same analysis for MN}
+#1 filter Denny’s and La Quinta Data Frames for MN,
+dn_MN <- dn %>%
+  filter(state == "MN")
+nrow(dn_MN)
+## There are 15 Denny’s locations in MN.
 
+lq_MN <- lq %>%
+  filter(state == "MN")
+nrow(lq_MN)
+## There are 7 La Quinta locations in MN.
 ```
 
+### Exercise 11 (2)
+```{r Repeat the same analysis for MN}
+#2 join these data frames to get a complete list of all possible pairings
+dn_lq_MN <- full_join(dn_MN, lq_MN, 
+                      by = "state")
+dn_lq_MN
+nrow(dn_lq_MN)
+## there are 105 pairings 
+```
+
+### Exercise 11 (3)
+```{r Repeat the same analysis for MN}
+#3 calculate the distances between all possible pairings of Denny’s and La Quinta in MN
+dn_lq_MN <- dn_lq_MN %>%
+  mutate (distance = haversine (longitude.x, latitude.x, longitude.y,  latitude.y, round =3))
+```
+
+### Exercise 11 (4)
+```{r Repeat the same analysis for MN}
+#4 find the minimum distance between each Denny’s and La Quinta location
+dn_lq_MN_mindist <- dn_lq_MN %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+dn_lq_MN_mindist
+```
+
+### Exercise 11 (5)
+```{r Repeat the same analysis for MN}
+#5 visualize and describe the distribution of these shortest distances using appropriate summary statistics.
+summary(dn_lq_MN_mindist$closest)
+
+ggplot(dn_lq_MN_mindist, aes(x = reorder(address.x, closest), y = closest)) +
+  geom_bar(stat = "identity", fill = "yellow", alpha = 0.7) +
+  labs(title = "Distance from Denny's to Nearest La Quinta in MN",
+       x = "Denny's Location",
+       y = "Distance") +
+  theme_minimal()
+## from each Denny's to its nearest La Quinta in MN 
+## min is 1.074km, max = 56.63km, on average, the distance from Denny's to its nearest La Quinta in MN is 13.19km. 
+```
 
 ### Exercise 12
 ```{r }

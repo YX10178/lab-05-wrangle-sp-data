@@ -1,0 +1,3 @@
+"0","states <- read_csv(""data/states.csv"")"
+"0","dn <- dsbox::dennys"
+"0","lq <- dsbox::laquinta"

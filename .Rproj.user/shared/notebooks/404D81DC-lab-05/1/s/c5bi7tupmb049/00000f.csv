@@ -1,0 +1,6 @@
+"0","dn_lq_ak_mindist <- dn_lq_ak %>%"
+"0","  group_by(address.x) %>%"
+"0","  summarize(closest = min(distance))"
+"0","print()"
+"2","Error in print.default() : argument ""x"" is missing, with no default
+"

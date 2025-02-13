@@ -3,7 +3,7 @@
     "path": "~/Desktop/datascience/lab-05-wrangle-sp-data/lab-05.Rmd",
     "project_path": "lab-05.Rmd",
     "type": "r_markdown",
-    "hash": "91675504",
+    "hash": "82324587",
     "contents": "",
     "dirty": false,
     "created": 1739455099246.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "3,16",
-        "scrollLine": "0"
+        "cursorPosition": "90,36",
+        "scrollLine": "85"
     },
     "folds": "",
-    "lastKnownWriteTime": 1739455120,
+    "lastKnownWriteTime": 1739468360,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1739455120439,
+    "last_content_update": 1739468360495,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -72,8 +72,6 @@ haversine <- function(long1, lat1, long2, lat2, round = 3) {
 
   return(round(d, round)) # distance in km
 }
-
-
 ```
 
 ### Exercise 6
@@ -89,21 +87,133 @@ print (dn_lq_ak$distance)
 dn_lq_ak_mindist <- dn_lq_ak %>%
   group_by(address.x) %>%
   summarize(closest = min(distance))
+dn_lq_ak_mindist
 ```
 
 ### Exercise 8
-```{r }
+```{r distribution}
+summary(dn_lq_ak_mindist$closest)
 
+ggplot(dn_lq_ak_mindist, aes(x = reorder(address.x, closest), y = closest)) +
+  geom_bar(stat = "identity", fill = "pink", alpha = 0.7) +
+  labs(title = "Distance from Denny's to Nearest La Quinta in Alaska",
+       x = "Denny's Location",
+       y = "Distance") +
+  theme_minimal()
+## from each Denny's to its nearest La Quinta in Alaska is within 6 km.
+## min is 2.035km, max = 5.998km, on average, the distance from Denny's to its nearest La Quinta in Alaska is 4.41km. 
 ```
 
-### Exercise 9
-```{r }
+### Exercise 9 (1)
+```{r Repeat the same analysis for North Carolina}
+#1 filter Denny’s and La Quinta Data Frames for NC,
+dn_nc <- dn %>%
+  filter(state == "NC")
+nrow(dn_nc)
+## There are 28 Denny’s locations in NC.
 
+lq_nc <- lq %>%
+  filter(state == "NC")
+nrow(lq_nc)
+## There are 12 La Quinta locations in NC.
 ```
 
-### Exercise 10
-```{r }
+### Exercise 9 (2)
+```{r Repeat the same analysis for North Carolina}
+#2 join these data frames to get a complete list of all possible pairings
+dn_lq_nc <- full_join(dn_nc, lq_nc, 
+                      by = "state")
+dn_lq_nc
+nrow(dn_lq_nc)
+## there are 336 pairings 
+```
 
+### Exercise 9 (3)
+```{r Repeat the same analysis for North Carolina}
+#3 calculate the distances between all possible pairings of Denny’s and La Quinta in NC
+dn_lq_nc <- dn_lq_nc %>%
+  mutate (distance = haversine (longitude.x, latitude.x, longitude.y,  latitude.y, round =3))
+
+print (dn_lq_nc$distance)
+```
+
+### Exercise 9 (4)
+```{r Repeat the same analysis for North Carolina}
+#4 find the minimum distance between each Denny’s and La Quinta location
+dn_lq_nc_mindist <- dn_lq_nc %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+dn_lq_nc_mindist
+```
+
+### Exercise 9 (5)
+```{r Repeat the same analysis for North Carolina}
+#5 visualize and describe the distribution of these shortest distances using appropriate summary statistics.
+summary(dn_lq_nc_mindist$closest)
+
+ggplot(dn_lq_nc_mindist, aes(x = reorder(address.x, closest), y = closest)) +
+  geom_bar(stat = "identity", fill = "green", alpha = 0.7) +
+  labs(title = "Distance from Denny's to Nearest La Quinta in NC",
+       x = "Denny's Location",
+       y = "Distance") +
+  theme_minimal()
+## from each Denny's to its nearest La Quinta in NC 
+## min is 1.779km, max = 187.935km, on average, the distance from Denny's to its nearest La Quinta in NC is 65.444km. 
+```
+
+
+### Exercise 10 (1)
+```{r Repeat the same analysis for Texas}
+#1 filter Denny’s and La Quinta Data Frames for TX,
+dn_tx <- dn %>%
+  filter(state == "TX")
+nrow(dn_tx)
+## There are 200 Denny’s locations in TX.
+
+lq_tx <- lq %>%
+  filter(state == "TX")
+nrow(lq_tx)
+## There are 237 La Quinta locations in TX.
+```
+
+### Exercise 10 (2)
+```{r Repeat the same analysis for TX}
+#2 join these data frames to get a complete list of all possible pairings
+dn_lq_tx <- full_join(dn_tx, lq_tx, 
+                      by = "state")
+dn_lq_tx
+nrow(dn_lq_tx)
+## there are 47400 pairings 
+```
+
+### Exercise 10 (3)
+```{r Repeat the same analysis for TX}
+#3 calculate the distances between all possible pairings of Denny’s and La Quinta in TX
+dn_lq_tx <- dn_lq_tx %>%
+  mutate (distance = haversine (longitude.x, latitude.x, longitude.y,  latitude.y, round =3))
+```
+
+### Exercise 10 (4)
+```{r Repeat the same analysis for TX}
+#4 find the minimum distance between each Denny’s and La Quinta location
+dn_lq_tx_mindist <- dn_lq_tx %>%
+  group_by(address.x) %>%
+  summarize(closest = min(distance))
+```
+
+### Exercise 9 (5)
+```{r Repeat the same analysis for TX}
+#5 visualize and describe the distribution of these shortest distances using appropriate summary statistics.
+summary(dn_lq_tx_mindist$closest)
+
+ggplot(dn_lq_tx_mindist, aes(x = reorder(address.x, closest), y = closest)) +
+  geom_bar(stat = "identity", fill = "purple", alpha = 0.7) +
+  labs(title = "Distance from Denny's to Nearest La Quinta in TX",
+       x = "Denny's Location",
+       y = "Distance") +
+  theme_minimal()
+## from each Denny's to its nearest La Quinta in TX 
+## min is 0.016km, max = 60.582km, on average, the distance from Denny's to its nearest La Quinta in TX is 5.7918km. 
 ```
 
 
